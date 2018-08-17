@@ -16,7 +16,7 @@ class thinkspain(Spider):
         for each_item in basic_datas:
 
             property = ItemLoader(item=items.ThinkspainItem(), selector=each_item)
-            property.add_xpath('property_name', 'a/div/h4[@class="desc"]/text()')
-            property.add_xpath('property_price', 'a/h4[@class="price"]/text()')
+            property.add_xpath('property_name', 'a/div/h4[@class="desc"]/text()', re='\\n\s*\\n\s*(.*)')
+            property.add_xpath('property_price', 'a/h4[@class="price"]/text()', re='\\u20ac (.*)')
             yield property.load_item()
 
