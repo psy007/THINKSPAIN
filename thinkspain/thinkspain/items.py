@@ -18,3 +18,9 @@ class Yelp(Item):
 class ThinkspainItem(Item):
     property_name = Field()
     property_price = Field()
+    property_description = Field()
+    Build_Size = Field()
+    Plot_Size = Field()
+    Bed_room  = Field()
+    Bath_room = Field()
+
