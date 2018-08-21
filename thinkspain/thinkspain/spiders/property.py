@@ -46,6 +46,7 @@ class thinkspain(Spider):
         property.add_xpath('Bed_room', '//div[@class="facilities"]/ul[2]/li[1]/strong/text()')
         property.add_xpath('Bath_room', '//div[@class="facilities"]/ul[2]/li[2]/strong/text()')
         property.add_xpath('WC', '//div[@class="facilities"]/ul[2]/li[3]/strong/text()')
+
         if response.xpath('//div[@class="facilities"]/ul/li/i[@class="icon-pool"]'):
             property.add_value('Pool', u'YES')
         else:
