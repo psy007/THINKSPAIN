@@ -2,7 +2,6 @@ from scrapy.spiders import Spider
 from scrapy.loader import ItemLoader
 from thinkspain import items
 from scrapy.http.request import Request
-#from urllib.parse import urlparse
 from urllib.parse import urljoin
 
 
@@ -12,7 +11,10 @@ from urllib.parse import urljoin
 class thinkspain(Spider):
 
     name = "property"
-    start_urls = ['https://www.thinkspain.com/property-for-sale','https://www.thinkspain.com/property-for-sale?numpag=2']
+    start_urls = ['https://www.thinkspain.com/property-for-sale',
+                  'https://www.thinkspain.com/property-for-sale?numpag=2',
+                  'https://www.thinkspain.com/property-for-sale?numpag=3',
+                  'https://www.thinkspain.com/property-for-sale?numpag=4']
     '''
     def parse(self, response):
         basic_datas = response.xpath('//div[@class="basic-datas"]')
@@ -66,6 +68,14 @@ class thinkspain(Spider):
 
 
         property.add_xpath('property_description', '//div[@class="description"]/p/text()')
+
+        # Location information
+        property.add_xpath('D_from_city', '//div[@class="proximity"]/ul[2]/li[1]/strong/text()')
+        property.add_xpath('D_from_Airport', '//div[@class="proximity"]/ul[2]/li[2]/strong/text()')
+        property.add_xpath('D_from_Marin', '//div[@class="proximity"]/ul[2]/li[3]/strong/text()')
+        property.add_xpath('D_from_beach', '//div[@class="proximity"]/ul[3]/li[1]/strong/text()')
+        property.add_xpath('D_from_countryside', '//div[@class="proximity"]/ul[3]/li[2]/strong/text()')
+        property.add_xpath('D_golfcourse', '//div[@class="proximity"]/ul[3]/li[3]/strong/text()')
 
         yield property.load_item()
 
