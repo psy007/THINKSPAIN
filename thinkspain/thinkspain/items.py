@@ -21,6 +21,10 @@ class ThinkspainItem(Item):
     property_description = Field()
     Build_Size = Field()
     Plot_Size = Field()
-    Bed_room  = Field()
+    Bed_room = Field()
     Bath_room = Field()
-
+    Pool = Field()
+    Heating = Field()
+    AC = Field()
+    Garage = Field()
+    WC = Field()

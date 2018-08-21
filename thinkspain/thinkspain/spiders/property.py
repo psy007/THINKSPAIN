@@ -35,14 +35,35 @@ class thinkspain(Spider):
 
     def detail_page(self, response):
 
+
+
         property = ItemLoader(item=items.ThinkspainItem(), selector=response)
+
         property.add_xpath('property_name', '//div[@class="description"]/div/h1/text()')
         property.add_xpath('property_price','//span[@class="price pr-none mr-none"]/text()', re='\\u20ac (.*)')
         property.add_xpath('Build_Size', '//div[@class="facilities"]/ul[1]/li[1]/strong/text()')
         property.add_xpath('Plot_Size', '//div[@class="facilities"]/ul[1]/li[2]/strong/text()')
         property.add_xpath('Bed_room', '//div[@class="facilities"]/ul[2]/li[1]/strong/text()')
         property.add_xpath('Bath_room', '//div[@class="facilities"]/ul[2]/li[2]/strong/text()')
-        #property.add_xpath('Pool', '//div[@class="facilities"]/ul[2]/li[3]/strong/text()')
+        property.add_xpath('WC', '//div[@class="facilities"]/ul[2]/li[3]/strong/text()')
+        if response.xpath('//div[@class="facilities"]/ul/li/i[@class="icon-pool"]'):
+            property.add_value('Pool', u'YES')
+        else:
+            property.add_value('Pool', u'NO')
+        if response.xpath('//div[@class="facilities"]/ul/li/i[@class="icon-air-conditioning"]'):
+            property.add_value('AC', u'YES')
+        else:
+            property.add_value('AC', u'NO')
+        if response.xpath('//div[@class="facilities"]/ul/li/i[@class="icon-heating"]'):
+            property.add_value('Heating', u'YES')
+        else:
+            property.add_value('Heating', u'NO')
+        if response.xpath('//div[@class="facilities"]/ul/li/i[@class="icon-garage"]'):
+            property.add_value('Garage', u'YES')
+        else:
+            property.add_value('Garage', u'NO')
+
+
         property.add_xpath('property_description', '//div[@class="description"]/p/text()')
 
         yield property.load_item()
