@@ -11,10 +11,12 @@ from urllib.parse import urljoin
 class thinkspain(Spider):
 
     name = "property"
-    start_urls = ['https://www.thinkspain.com/property-for-sale',
-                  'https://www.thinkspain.com/property-for-sale?numpag=2',
-                  'https://www.thinkspain.com/property-for-sale?numpag=3',
-                  'https://www.thinkspain.com/property-for-sale?numpag=4']
+
+    start_urls = ['https://www.thinkspain.com/property-for-sale?numpag={}'.format(i) for i in range(50)]
+    # start_urls = ['https://www.thinkspain.com/property-for-sale',
+    #               'https://www.thinkspain.com/property-for-sale?numpag=2',
+    #               'https://www.thinkspain.com/property-for-sale?numpag=3',
+    #               'https://www.thinkspain.com/property-for-sale?numpag=4']
     '''
     def parse(self, response):
         basic_datas = response.xpath('//div[@class="basic-datas"]')
@@ -67,7 +69,7 @@ class thinkspain(Spider):
             property.add_value('Garage', u'NO')
 
 
-        property.add_xpath('property_description', '//div[@class="description"]/p/text()')
+        property.add_xpath('property_description', '//div[@class="description"]/p/text()' )
 
         # Location information
         property.add_xpath('D_from_city', '//div[@class="proximity"]/ul[2]/li[1]/strong/text()')

@@ -6,7 +6,9 @@
 # https://doc.scrapy.org/en/latest/topics/items.html
 
 from scrapy.item import Item, Field
-from scrapy.loader.processors import  TakeFirst
+from scrapy.loader.processors import  TakeFirst, MapCompose
+from w3lib.html import remove_tags
+
 
 '''
 class Yelp(Item):
@@ -19,7 +21,7 @@ class Yelp(Item):
 class ThinkspainItem(Item):
     property_name = Field(output_processor=TakeFirst())
     property_price = Field(output_processor=TakeFirst())
-    property_description = Field(output_processor=TakeFirst())
+    property_description = Field(input_processor = MapCompose(remove_tags), output_processor=TakeFirst())
     Build_Size = Field(output_processor=TakeFirst())
     Plot_Size = Field(output_processor=TakeFirst())
     Bed_room = Field(output_processor=TakeFirst())
